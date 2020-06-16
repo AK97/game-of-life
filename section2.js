@@ -68,44 +68,45 @@ class NewGameOfLife {
         }
     }
 }
-
 $(function() {
-    let DIM = 100;
-    let game1 = new NewGameOfLife(DIM, DIM, 250);
-    let game2 = new NewGameOfLife(DIM, DIM, 500);
-    let game3 = new NewGameOfLife(DIM, DIM, 1000);
+    $("#b1").click(function() {
+        $("#b1").remove();
+        let DIM = 100;
+        let game1 = new NewGameOfLife(DIM, DIM, 250);
+        let game2 = new NewGameOfLife(DIM, DIM, 500);
+        let game3 = new NewGameOfLife(DIM, DIM, 1000);
 
-    $('#canvb1').prop('width', DIM*3);
-    $('#canvb1').prop('height', DIM*3);
-    $('#canvb2').prop('width', DIM*3);
-    $('#canvb2').prop('height', DIM*3);
-    $('#canvb3').prop('width', DIM*3);
-    $('#canvb3').prop('height', DIM*3);
-    
-    let c1 = $('#canvb1')[0].getContext("2d");
-    let c2 = $('#canvb2')[0].getContext("2d");
-    let c3 = $('#canvb3')[0].getContext("2d");
+        $('#canvb1').prop('width', DIM*3);
+        $('#canvb1').prop('height', DIM*3);
+        $('#canvb2').prop('width', DIM*3);
+        $('#canvb2').prop('height', DIM*3);
+        $('#canvb3').prop('width', DIM*3);
+        $('#canvb3').prop('height', DIM*3);
+        
+        let c1 = $('#canvb1')[0].getContext("2d");
+        let c2 = $('#canvb2')[0].getContext("2d");
+        let c3 = $('#canvb3')[0].getContext("2d");
 
-    setInterval(function() {
-        c1.clearRect(0,0,$('#canvb1')[0].width,$('#canvb1')[0].height)
-        c2.clearRect(0,0,$('#canvb2')[0].width,$('#canvb2')[0].height)
-        c3.clearRect(0,0,$('#canvb3')[0].width,$('#canvb3')[0].height)
-        for (var i = 0; i < DIM; i++) {
-            for (var j = 0; j < DIM; j++) {
-                if (game1.board[i][j] == 1) {
-                    c1.fillRect(j*3-2,i*3-2,3,3);
-                }
-                if (game2.board[i][j] == 1) {
-                    c2.fillRect(j*3-2,i*3-2,3,3);
-                }
-                if (game3.board[i][j] == 1) {
-                    c3.fillRect(j*3-2,i*3-2,3,3);
+        setInterval(function() {
+            c1.clearRect(0,0,$('#canvb1')[0].width,$('#canvb1')[0].height)
+            c2.clearRect(0,0,$('#canvb2')[0].width,$('#canvb2')[0].height)
+            c3.clearRect(0,0,$('#canvb3')[0].width,$('#canvb3')[0].height)
+            for (var i = 0; i < DIM; i++) {
+                for (var j = 0; j < DIM; j++) {
+                    if (game1.board[i][j] == 1) {
+                        c1.fillRect(j*3-2,i*3-2,3,3);
+                    }
+                    if (game2.board[i][j] == 1) {
+                        c2.fillRect(j*3-2,i*3-2,3,3);
+                    }
+                    if (game3.board[i][j] == 1) {
+                        c3.fillRect(j*3-2,i*3-2,3,3);
+                    }
                 }
             }
-        }
-        game1.tick();
-        game2.tick();
-        game3.tick();
-    }, 100); //perform every 250ms
-})
-
+            game1.tick();
+            game2.tick();
+            game3.tick();
+        }, 100); //perform every 250ms
+    })
+});

@@ -71,8 +71,8 @@ class SpeciesGame {
         }
         //consumption and reproduction
         else if (Object.values(count).includes(4)) { //surrounded only by 4 of a single species
-                //return Object.keys(count).find(key => count[key] === 4); //alive as a member of that species
-                return 0;
+                return Object.keys(count).find(key => count[key] === 4); //alive as a member of that species
+                //return 0;
         }
         else if (total == 3 && Object.values(count).includes(3)) { //surrounded only by 3 of a single species
             return Object.keys(count).find(key => count[key] === 3); //alive as a member of that species
@@ -92,50 +92,51 @@ class SpeciesGame {
 }
 
 $(function() {
-    let DIM = 100;
-    let game1 = new SpeciesGame(DIM, DIM, [250,250]);
-    let game2 = new SpeciesGame(DIM, DIM, [500,500]);
-    let game3 = new SpeciesGame(DIM, DIM, [1000,1000]);
+    $("#c1").click(function() {
+        $("#c1").remove();
+        let DIM = 100;
+        let game1 = new SpeciesGame(DIM, DIM, [300,300]);
+        let game2 = new SpeciesGame(DIM, DIM, [600,600]);
+        let game3 = new SpeciesGame(DIM, DIM, [500,500,500]);
 
-    game1.display();
+        game1.display();
 
-    $('#canvc1').prop('width', DIM*3);
-    $('#canvc1').prop('height', DIM*3);
-    $('#canvc2').prop('width', DIM*3);
-    $('#canvc2').prop('height', DIM*3);
-    $('#canvc3').prop('width', DIM*3);
-    $('#canvc3').prop('height', DIM*3);
-    
-    let c1 = $('#canvc1')[0].getContext("2d");
-    let c2 = $('#canvc2')[0].getContext("2d");
-    let c3 = $('#canvc3')[0].getContext("2d");
+        $('#canvc1').prop('width', DIM*3);
+        $('#canvc1').prop('height', DIM*3);
+        $('#canvc2').prop('width', DIM*3);
+        $('#canvc2').prop('height', DIM*3);
+        $('#canvc3').prop('width', DIM*3);
+        $('#canvc3').prop('height', DIM*3);
+        
+        let c1 = $('#canvc1')[0].getContext("2d");
+        let c2 = $('#canvc2')[0].getContext("2d");
+        let c3 = $('#canvc3')[0].getContext("2d");
 
-    let fillStyles = ['','blue', 'red', 'green', 'purple']
+        let fillStyles = ['','blue', 'red', 'yellow', 'green', 'purple']
 
-    setInterval(function() {
-        c1.clearRect(0,0,$('#canvc1')[0].width,$('#canvc1')[0].height)
-        c2.clearRect(0,0,$('#canvc2')[0].width,$('#canvc2')[0].height)
-        c3.clearRect(0,0,$('#canvc3')[0].width,$('#canvc3')[0].height)
-        for (var i = 0; i < DIM; i++) {
-            for (var j = 0; j < DIM; j++) {
-                if (game1.board[i][j] != 0) {
-                    c1.fillStyle = fillStyles[game1.board[i][j]];
-                    c1.fillRect(j*3-2,i*3-2,3,3);
-                }
-                if (game2.board[i][j] != 0) {
-                    c2.fillStyle = fillStyles[game2.board[i][j]];
-                    c2.fillRect(j*3-2,i*3-2,3,3);
-                }
-                if (game3.board[i][j] != 0) {
-                    c3.fillStyle = fillStyles[game3.board[i][j]];
-                    c3.fillRect(j*3-2,i*3-2,3,3);
+        let running = setInterval(function() {
+            c1.clearRect(0,0,$('#canvc1')[0].width,$('#canvc1')[0].height)
+            c2.clearRect(0,0,$('#canvc2')[0].width,$('#canvc2')[0].height)
+            c3.clearRect(0,0,$('#canvc3')[0].width,$('#canvc3')[0].height)
+            for (var i = 0; i < DIM; i++) {
+                for (var j = 0; j < DIM; j++) {
+                    if (game1.board[i][j] != 0) {
+                        c1.fillStyle = fillStyles[game1.board[i][j]];
+                        c1.fillRect(j*3-2,i*3-2,3,3);
+                    }
+                    if (game2.board[i][j] != 0) {
+                        c2.fillStyle = fillStyles[game2.board[i][j]];
+                        c2.fillRect(j*3-2,i*3-2,3,3);
+                    }
+                    if (game3.board[i][j] != 0) {
+                        c3.fillStyle = fillStyles[game3.board[i][j]];
+                        c3.fillRect(j*3-2,i*3-2,3,3);
+                    }
                 }
             }
-        }
-        game1.tick();
-        game2.tick();
-        game3.tick();
-    }, 100); //perform every 250ms
-})
-
-
+            game1.tick();
+            game2.tick();
+            game3.tick();
+        }, 200); //perform every 250ms
+    })
+});
